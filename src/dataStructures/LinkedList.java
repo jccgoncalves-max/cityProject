@@ -40,13 +40,16 @@ abstract class LinkedList<E> implements Serializable {
      * @return true if the list is empty
      */
     public boolean isEmpty() {
+
         return currentSize == 0;
+
     }
     /**
      * Returns the number of elements in the list.
      * @return number of elements in the list
      */
     public int size() {
+
         return currentSize;
     }
 
@@ -64,22 +67,23 @@ abstract class LinkedList<E> implements Serializable {
      */
     void addFirstNode(LinkedNode<E> newNode){
 
-            newNode.setNext(head);
-            head = newNode;
-            if (isEmpty()){
-                tail = newNode;
-            }
-            currentSize++;
+        newNode.setNext(head);
+        head = newNode;
+        if (isEmpty()){
+            tail = newNode;
+        }
+        currentSize++;
+
     }
     /**
      * Insert a node on the tail of list
      * @param newNode
      */
     void addLastNode(LinkedNode<E> newNode){
-
-        if (isEmpty()){
+        if(isEmpty()){
             head = newNode;
-        }else{
+
+        }else {
             tail.setNext(newNode);
         }
         tail = newNode;
@@ -99,7 +103,8 @@ abstract class LinkedList<E> implements Serializable {
      */
     void addMiddleNode(pairNode<E> pair,LinkedNode<E> newNode){
 
-        newNode.setNext(pair.node);
+        newNode.setNext(pair.node());
+
         pair.prev().setNext(newNode);
         currentSize++;
     }
@@ -109,12 +114,13 @@ abstract class LinkedList<E> implements Serializable {
      * @return
      */
     E removeFirstNode(){
-
         E element = head.getElement();
         head = head.getNext();
-        currentSize--;
-
-	return element;
+        currentSize --;
+        if (isEmpty()){
+            tail= null;
+        }
+        return element;
     }
 
     /**
@@ -123,20 +129,22 @@ abstract class LinkedList<E> implements Serializable {
      */
     E removeLastNode(pairNode<E> pair){
 
-        E element = tail.getElement();
+        E element = pair.node().getElement();
         tail = pair.prev();
         tail.setNext(null);
         currentSize--;
-
         return element;
     }
     /**
      * remove the node pair.node()
      @pre: pair.previous()!=null && pair.node()!=null
-     * @param pair
+      * @param pair
      */
     void removeMiddleNode(pairNode<E> pair) {
-        pair.prev.setNext(pair.node.getNext());
+
+        pair.prev().setNext(pair.node().getNext());
+
+        currentSize--;
     }
 
     /**
@@ -145,6 +153,7 @@ abstract class LinkedList<E> implements Serializable {
      * @return pair with the previous node and the element node, Or null if no element
      */
     pairNode<E>  nodeOf(E element){
+
         LinkedNode<E> prev = null;
         LinkedNode<E> node = head;
         while (node != null) {
@@ -165,7 +174,7 @@ abstract class LinkedList<E> implements Serializable {
     LinkedNode<E> getLastNode(){
         return tail;
     }
-     // MANUAL SERIALIZATION
+    // MANUAL SERIALIZATION
     @Serial
     private void writeObject(ObjectOutputStream oos) throws IOException {
         //TODO: Left as an exercise.
