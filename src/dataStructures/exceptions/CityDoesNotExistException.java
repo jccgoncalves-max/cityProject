@@ -1,10 +1,9 @@
 package dataStructures.exceptions;
 
-public class CityDoesNotExistException extends RuntimeException {
-    public CityDoesNotExistException(String message) {
-        super(message);
-    }
+public class CityDoesNotExistException extends Exception {
     public CityDoesNotExistException() {
         super();
     }
+
+
 }

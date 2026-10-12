@@ -5,8 +5,14 @@ import dataStructures.*;
 public class CitiesComparator implements Comparator<City> {
     @Override
     public int compare(City x, City y) {//todo: terminar de implementar comparator;
-        int result = x.getCountry()-y.getCountry();
-        if(result ==0)
-        return ;
+        int comCountry = x.getCountry().compareTo(y.getCountry());
+        if (comCountry != 0)
+            return comCountry;
+        int compPopulation = y.getPopulation() - x.getPopulation();
+        if (compPopulation !=0)
+            return compPopulation;
+
+        return x.getName().compareToIgnoreCase(y.getName());
+
     }
 }

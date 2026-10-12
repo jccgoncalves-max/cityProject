@@ -13,6 +13,7 @@ public class CityClass implements City{
         this.country = country;
         this.population = population;
     }
+    //fixme: já não é preciso usar esse construtor
     public CityClass(String name, String country){
         this.name = name;
         this.country = country;
