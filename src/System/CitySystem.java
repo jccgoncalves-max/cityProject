@@ -21,8 +21,20 @@ public interface CitySystem {
      */
     void removeCity(String cityName, String countryName)throws CityDoesNotExistException;
 
+    /**
+     * Return the number of inhabitants of a city.
+     * @param cityName Name of the city.
+     * @param countryName Name of the country.
+     * @return Number of inhabitants
+     * @throws CityDoesNotExistException
+     */
     int population( String cityName, String countryName)throws CityDoesNotExistException;
 
-    Iterator<City> listCities() throws NoCitiesAvailableException;
+    /**
+     * Iterator of a cities collection
+     * @return City Iterator
+     * @throws NoCitiesAvailableException
+     */
+    Iterator<City> listCities() ;
 
 }

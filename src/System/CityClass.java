@@ -2,7 +2,6 @@ package System;
 
 public class CityClass implements City{
 
-    //todo: Debater com o lenine sobre a possibilidade de criarmos uma classe que terá dois construtores;
 
     private String name;
     private String country;
@@ -12,11 +11,6 @@ public class CityClass implements City{
         this.name = name;
         this.country = country;
         this.population = population;
-    }
-    //fixme: já não é preciso usar esse construtor
-    public CityClass(String name, String country){
-        this.name = name;
-        this.country = country;
     }
 
     public String getName(){
@@ -32,7 +26,7 @@ public class CityClass implements City{
 
     public boolean equals(Object other){
         CityClass otherCity = (CityClass)other;
-        return (otherCity instanceof CityClass && name.equals(otherCity.getName()) && country.equals(otherCity.getCountry()));
+        return (otherCity != null && name.equals(otherCity.getName()) && country.equals(otherCity.getCountry()));
     }
 
 }
