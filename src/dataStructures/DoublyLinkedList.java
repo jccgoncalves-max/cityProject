@@ -34,14 +34,29 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
      * @param element - Element to be inserted
      */
     public void addFirst( E element ) {
-        //TODO: Left as an exercise.
+
+        DoublyListNode<E> newNode = new DoublyListNode<>(element,null,(DoublyListNode<E>) head);
+        if (!isEmpty()){
+            ((DoublyListNode<E>) head).setPrevious(newNode);
+        }else{
+            tail = newNode;
+        }
+        head = newNode;
+        currentSize++;
     }
     /**
      * Inserts the element at the last position in the list.
      * @param element - Element to be inserted
      */
     public void addLast( E element ) {
-       //TODO: Left as an exercise.
+        DoublyListNode<E> newNode = new DoublyListNode<>(element,(DoublyListNode<E>) tail,null);
+        if (!isEmpty()){
+            tail.setNext(newNode);
+        }else{
+            head = newNode;
+        }
+        tail = newNode;
+        currentSize++;
     }
     /**
      * Inserts the specified element at the specified position in the list.
@@ -50,16 +65,36 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
      * @param element - element to be inserted at middle position
      */
     void addMiddle( int position, E element ) {
-        //TODO: Left as an exercise.
+        DoublyListNode<E> prevNode = (DoublyListNode<E>)head;
+        for (int i = 0; i < position - 1; i++) {
+            prevNode = (DoublyListNode<E>) prevNode.getNext();
+        }
+        DoublyListNode<E> nextNode = (DoublyListNode<E>) prevNode.getNext();
+        DoublyListNode<E> newNode = new DoublyListNode<>(element, prevNode, nextNode);
+
+        prevNode.setNext(newNode);
+        nextNode.setPrevious(newNode);
+        currentSize++;
     }
+
     /**
      * Removes and returns the element at the first position in the list.
      * @return element removed from the first position of the list
      * @throws NoSuchElementException - if size() == 0
      */
-    public E removeFirst( ) {
-       //TODO: Left as an exercise.
-        return null;
+    public E removeFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        E element = head.getElement();
+        head = head.getNext();
+        if (head != null){
+            ((DoublyListNode<E>)head).setPrevious(null);
+        }else{
+            tail = null;
+        }
+        currentSize --;
+        return element;
     }
 
     /**
@@ -69,12 +104,39 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
      * @return element removed from the first position of the list
      */
     E removeMiddle( int position ) {
-        //TODO: Left as an exercise.
-        return null;
+        DoublyListNode<E> target;
+        if (position < currentSize/2){
+            target = (DoublyListNode<E>) head;
+            for (int i = 0; i < position; i++){
+                target = (DoublyListNode<E>) target.getNext();
+            }
+        }else{
+            target = (DoublyListNode<E>) tail;
+            for (int i = currentSize-1; i > position; i--){
+                target = (DoublyListNode<E>) target.getPrevious();
+            }
+        }
+        E element = target.getElement();
+
+        DoublyListNode<E> prevNode = (DoublyListNode<E>) target.getPrevious();
+        DoublyListNode<E> nextNode = (DoublyListNode<E>) target.getNext();
+
+        prevNode.setNext(nextNode);
+        nextNode.setPrevious(prevNode);
+
+        currentSize --;
+        return element;
     }
 
     pairNode<E> getNodes(int position){
-        //TODO: Left as an exercise.
-        return null;
+        LinkedNode<E> prev = null;
+        LinkedNode<E> current = (LinkedNode<E>)head;
+
+        for (int i  = 0; i < position; i++){
+            prev = (LinkedNode<E>) current;
+            current = ((LinkedNode<E>) current).getNext();
+        }
+
+        return new pairNode<>(prev,current);
     }
 }

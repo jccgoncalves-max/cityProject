@@ -7,7 +7,7 @@ import dataStructures.exceptions.NoSuchElementException;
  * @author AED  Team
  * @version 1.0
  * @param <E> Generic Element
- * 
+ *
  */
 class TwoWayLinkedIterator<E> extends LinkedIterator<E>
         implements TwoWayIterator<E> {
@@ -34,35 +34,58 @@ class TwoWayLinkedIterator<E> extends LinkedIterator<E>
 
     @Override
     public boolean hasPrevious() {
-        return false;
+        return prevToReturn != null;
     }
 
     @Override
     public E previous() throws NoSuchElementException {
-        return null;
+        if (!hasPrevious()){
+            throw new NoSuchElementException();
+        }
+
+        DoublyListNode<E> nodeToReturn = (DoublyListNode<E>) prevToReturn;
+        E element = nodeToReturn.getElement();
+
+        nextToReturn = nodeToReturn;
+        prevToReturn = nodeToReturn.getPrevious();
+
+        return element;
     }
 
     @Override
     public void fullForward() {
-
+        nextToReturn = null;
+        prevToReturn = lastNode;
     }
 
     @Override
     public boolean hasNext() {
-        return false;
+        return nextToReturn != null;
     }
 
     @Override
     public E next() throws NoSuchElementException {
-        return null;
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+
+        // 1. Guardar o nó e o elemento atual
+        LinkedNode<E> nodeToReturn = nextToReturn;
+        E element = nodeToReturn.getElement();
+        // 2. Atualizar os ponteiros para a frente
+        prevToReturn = nodeToReturn;          // O nó lido fica para trás
+        nextToReturn = nodeToReturn.getNext(); // O próximo passa a ser o nó seguinte
+        return element;
     }
 
     @Override
     public void rewind() {
+        super.rewind();
+        prevToReturn = null;
 
     }
 
     //TODO: Left as an exercise.
-    
+
 
 }
