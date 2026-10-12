@@ -1,6 +1,8 @@
 import System.*;
 import dataStructures.exceptions.CityAlreadyExistsException;
-
+import dataStructures.exceptions.CityDoesNotExistException;
+import dataStructures.exceptions.NoCitiesAvailableException;
+import dataStructures.Iterator;
 import java.util.Scanner;
 
 public class Main {
@@ -9,8 +11,10 @@ public class Main {
     private static final String CITY_ALREADY_EXISTS_MSG = "City already exists.";
     private static final String CITY_REMOVED_MSG = "City successfully removed.";
     private static final String CITY_NOT_FOUND_MSG = "City not found.";
+    private static final String POPULATION_MSG = "Population: %d";
+    private static final String LIST_CITY_MSG = "%s - %d - %s\n";
 
-    private static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         CitySystem cs = new CitySystemClass();
         executeCommand(in, cs);
@@ -57,7 +61,8 @@ public class Main {
             String cmd = in.nextLine();
             return Command.valueOf(cmd);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException();
+           // throw new IllegalArgumentException(); // fixme: estava a lançar exceção por isso fiz return null
+           return null;
         }
     }
 
@@ -70,7 +75,9 @@ public class Main {
     private static void processCommand(CitySystem cs, Scanner in, Command cmd) {
         switch (cmd) {
             case addCity -> addCityCmd(in, cs);
-            case removeCity -> removeCityCmd(in,cs);
+            case removeCity -> removeCityCmd(in, cs);
+            case population -> populationCmd(in,cs);
+            case listCities -> listCitiesCmd(cs);
             case help -> Command.executeHelpCmd();
         }
 
@@ -92,6 +99,7 @@ public class Main {
 
     /**
      * Adds a new city into the directory;
+     *
      * @param in Scanner input
      * @param cs City System
      */
@@ -110,6 +118,7 @@ public class Main {
 
     /**
      * Removes an existing city from the directory.
+     *
      * @param in Scanner input
      * @param cs City System
      */
@@ -119,8 +128,38 @@ public class Main {
             String countryName = in.nextLine();
             cs.removeCity(cityName, countryName);
             System.out.println(CITY_REMOVED_MSG);
-        } catch (CityAlreadyExistsException e) {
+
+        } catch (CityDoesNotExistException e) {
+            System.out.println(CITY_NOT_FOUND_MSG);
+
+        }
+    }
+
+    private static void populationCmd(Scanner in, CitySystem cs){
+        try {
+            String cityName = in.nextLine();
+            String countryName = in.nextLine();
+         int numPopulation = cs.population(cityName,countryName);
+         System.out.printf(POPULATION_MSG, numPopulation);
+
+        }catch (CityDoesNotExistException e){
             System.out.println(CITY_NOT_FOUND_MSG);
         }
     }
+
+    private  static  void listCitiesCmd( CitySystem cs){
+        try {
+            Iterator<City> it = cs.listCities();
+
+            while (it.hasNext()){
+                City city = it.next();
+                System.out.printf(LIST_CITY_MSG,city.getCountry(),city.getPopulation(),city.getName());
+            }
+        }catch (NoCitiesAvailableException e){
+            System.out.println();
+        }
+
+    }
+
+
 }

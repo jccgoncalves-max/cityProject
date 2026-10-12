@@ -132,7 +132,7 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
             current = current.getNext();
         }
 
-        if (current == null || comparator.compare(current.getElement(), element) >= 0) {
+        if (current == null || comparator.compare(current.getElement(), element) > 0) {
             return null;
         }
 
