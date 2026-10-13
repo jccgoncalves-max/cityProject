@@ -5,7 +5,9 @@ import dataStructures.exceptions.CityAlreadyExistsException;
 import dataStructures.exceptions.CityDoesNotExistException;
 import dataStructures.exceptions.NoCitiesAvailableException;
 
-public interface CitySystem {
+import java.io.Serializable;
+
+public interface CitySystem extends Serializable {
     /**
      * Adds new city to the directory
      * @param cityName Name of the city.
@@ -37,4 +39,5 @@ public interface CitySystem {
      */
     Iterator<City> listCities() ;
 
+    void storeCities(String fileName);
 }

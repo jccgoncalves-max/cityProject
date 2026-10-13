@@ -37,7 +37,7 @@ class DoublyListNode<E> extends SinglyListNode<E> implements Serializable {
          * 
          * @return the previous node
          */
-        public LinkedNode<E> getPrevious( ) {
+        public LinkedNode<E> getPrevious() {
             return previous;
         }
         /**

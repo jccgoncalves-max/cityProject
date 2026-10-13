@@ -1,7 +1,10 @@
 package System;
 
-public class CityClass implements City{
+import java.io.Serializable;
 
+public class CityClass implements City, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String name;
     private String country;

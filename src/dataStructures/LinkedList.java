@@ -176,20 +176,34 @@ abstract class LinkedList<E> implements Serializable {
     }
     // MANUAL SERIALIZATION
     @Serial
-    private void writeObject(ObjectOutputStream oos) throws IOException {
-        //TODO: Left as an exercise.
+    private void writeObject(ObjectOutputStream oos) throws IOException {// Escreve de forma manual estruturas de dados num ficheiro em bytes
+        writeData(oos);
+        oos.writeInt(currentSize);
+        LinkedNode<E> node = head;
+        while(node!=null){
+            oos.writeObject(node.getElement());
+            node = node.getNext();
+        }
     }
 
     // MANUAL DESERIALIZATION
     @Serial
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        //TODO: Left as an exercise.
+        readData(ois);
+        int size = ois.readInt();
+        for(int i =0; i<size;i++){
+            @SuppressWarnings("unchecked")
+            E element = (E) ois.readObject();
+            addElem(element);
+        }
     }
 
-    void writeData(ObjectOutputStream out) throws IOException{
+
+    void writeData(ObjectOutputStream out) throws IOException{//Utilizado para escrever uma variável específica ou informação de uma subclasse
+
     }
 
-    void readData(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    void readData(ObjectInputStream in) throws IOException, ClassNotFoundException {//Utilizado para ler uma variável específica ou informação de uma subclasse
     }
 
     abstract void addElem(E element);

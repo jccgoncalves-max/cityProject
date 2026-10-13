@@ -69,12 +69,11 @@ class TwoWayLinkedIterator<E> extends LinkedIterator<E>
             throw new NoSuchElementException();
         }
 
-        // 1. Guardar o nó e o elemento atual
         LinkedNode<E> nodeToReturn = nextToReturn;
         E element = nodeToReturn.getElement();
-        // 2. Atualizar os ponteiros para a frente
-        prevToReturn = nodeToReturn;          // O nó lido fica para trás
-        nextToReturn = nodeToReturn.getNext(); // O próximo passa a ser o nó seguinte
+
+        prevToReturn = nodeToReturn;
+        nextToReturn = nodeToReturn.getNext();
         return element;
     }
 
@@ -85,7 +84,6 @@ class TwoWayLinkedIterator<E> extends LinkedIterator<E>
 
     }
 
-    //TODO: Left as an exercise.
 
 
 }

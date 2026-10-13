@@ -149,7 +149,6 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
             return removeLastNode(pair);
         }
 
-
         removeMiddleNode(pair);
 
         return removedElement;
@@ -157,10 +156,9 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
 
     @Override
     void addElem(E element) {
-
+        addLast(element);
     }
 
-    //TODO: esses aqui achei que não era preciso fazer
     /**
      * Inserts the element before node after.
      * Precondition: after is not the head of the list.
@@ -168,14 +166,19 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
      * @param before - Node to be previous to the new node
      */
     void addBeforeNode(E element, LinkedNode<E> before){
-        //TODO: Left as an exercise.
+        LinkedNode<E> newNode = new SinglyListNode<>(element);
+        LinkedNode<E> afterNode = before.getNext();
+        before.setNext(newNode);
+        newNode.setNext(afterNode);
+        currentSize++;
     }
     /**
      * Inserts the element at the first position in the list.
      * @param element - Element to be inserted
      */
     void addFirst( E element ) {
-        //TODO: Left as an exercise.
+        LinkedNode<E> newNode = new SinglyListNode<>(element);
+        super.addFirstNode(newNode);
     }
 
     /**
@@ -183,19 +186,33 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
      * @param element - Element to be inserted
      */
     void addLast( E element ) {
-        //TODO: Left as an exercise.
+        LinkedNode<E> newNode = new SinglyListNode<>(element,null);
+        super.addLastNode(newNode);
     }
 
-
+    /**
+     *
+     * @return
+     */
     private boolean invariant() {
-        //TODO: Left as an exercise.
-        return true;
+        if(isEmpty())
+            return true;
+        Iterator<E> it = this.iterator();
+        boolean ok = true;
+        E elemP = it.next();
+        while(ok && it.hasNext()){
+            E elemN = it.next();
+            ok = comparator.compare(elemP,elemN)<=0;
+            elemP = elemN;
+        }
+        return ok;
     }
 
-    void writeData(ObjectOutputStream oos) throws IOException {
+
+    void writeData(ObjectOutputStream oos) throws IOException {//Utilizado para escrever uma variável específica ou informação de uma subclasse
         oos.defaultWriteObject(); // write the normal attributes
     }
-    void readData(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    void readData(ObjectInputStream ois) throws IOException, ClassNotFoundException {//Utilizado para ler uma variável específica  ou  informação da uma subclasse
         ois.defaultReadObject(); // read the normal attributes
     }
 }
