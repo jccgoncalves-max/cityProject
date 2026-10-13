@@ -1,8 +1,6 @@
 import System.*;
-import dataStructures.exceptions.CityAlreadyExistsException;
-import dataStructures.exceptions.CityDoesNotExistException;
-import dataStructures.exceptions.NoCitiesAvailableException;
-import dataStructures.Iterator;
+import dataStructures.exceptions.*;
+import dataStructures.*;
 import java.util.Scanner;
 
 public class Main {
@@ -13,6 +11,9 @@ public class Main {
     private static final String CITY_NOT_FOUND_MSG = "City not found.";
     private static final String POPULATION_MSG = "Population: %d";
     private static final String LIST_CITY_MSG = "%s - %d - %s\n";
+    private static final String NO_CITIES_MSG="No cities available.";
+    private static final String SAVED_DIRECTORY_MSG = "City directory saved.";
+    private static final String QUIT_MSG = "Goodbye.";
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -26,10 +27,10 @@ public class Main {
      * Contains all enum types
      */
     private enum Command {
-        addCity("addCity:  Adds a new city to the directory."),
+        addCity("addCity: Adds a new city to the directory."),
         removeCity("removeCity: Removes an existing city from the directory."),
-        population("population:  Returns the number of inhabitants of a city"),
-        listCities("listCities:  Lists all cities currently stored in the directory."),
+        population("population: Returns the number of inhabitants of a city"),
+        listCities("listCities: Lists all cities currently stored in the directory."),
         help(" help: Displays the list of available commands."),
         quit("quit: Terminates the application.");
         private String msg;
@@ -57,18 +58,17 @@ public class Main {
      * @return Command value
      */
     private static Command getCommand(Scanner in) {
-        try {
+        Command finalCmd = null;
             String cmd = in.nextLine();
-            return Command.valueOf(cmd);
-        } catch (IllegalArgumentException e) {
-           // throw new IllegalArgumentException(); // fixme: estava a lançar exceção por isso fiz return null
-           return null;
-        }
+            for(int i = 0; i<Command.values().length;i++){
+                if(Command.values()[i].toString().equalsIgnoreCase(cmd))//todo: A leitura do comando dever ser case-insensitive;
+                    finalCmd = Command.values()[i];
+            }
+            return finalCmd;
     }
 
     /**
      * Processes command interpreter
-     *
      * @param in  Scanner input
      * @param cmd Command
      */
@@ -79,13 +79,13 @@ public class Main {
             case population -> populationCmd(in,cs);
             case listCities -> listCitiesCmd(cs);
             case help -> Command.executeHelpCmd();
+            case quit -> quitCmd(cs);
         }
 
     }
 
     /**
      * Executes command interpreter
-     *
      * @param in Scanner input
      * @param cs City System
      */
@@ -99,7 +99,6 @@ public class Main {
 
     /**
      * Adds a new city into the directory;
-     *
      * @param in Scanner input
      * @param cs City System
      */
@@ -118,7 +117,6 @@ public class Main {
 
     /**
      * Removes an existing city from the directory.
-     *
      * @param in Scanner input
      * @param cs City System
      */
@@ -135,31 +133,44 @@ public class Main {
         }
     }
 
+    /**
+     * Returns the number of inhabitants of the city
+     * @param in Scanner input
+     * @param cs City System
+     */
     private static void populationCmd(Scanner in, CitySystem cs){
         try {
             String cityName = in.nextLine();
             String countryName = in.nextLine();
-         int numPopulation = cs.population(cityName,countryName);
-         System.out.printf(POPULATION_MSG, numPopulation);
+            int numPopulation = cs.population(cityName,countryName);
+            System.out.printf(POPULATION_MSG, numPopulation);
 
         }catch (CityDoesNotExistException e){
             System.out.println(CITY_NOT_FOUND_MSG);
         }
     }
 
-    private  static  void listCitiesCmd( CitySystem cs){
-        try {
+    /**
+     * List all cities currently stored in the directory.
+     * @param cs City System
+     */
+    private  static  void listCitiesCmd(CitySystem cs){
             Iterator<City> it = cs.listCities();
-
+            if(!it.hasNext())
+                System.out.println(NO_CITIES_MSG);//todo: Se fores ler o enunciado, isso não é uma mensagem de erro mas sim uma funcionalidade do programa
             while (it.hasNext()){
                 City city = it.next();
                 System.out.printf(LIST_CITY_MSG,city.getCountry(),city.getPopulation(),city.getName());
             }
-        }catch (NoCitiesAvailableException e){
-            System.out.println();
-        }
 
     }
 
-
+    /**
+     * Terminates de application.
+     * @param cs City System
+     */
+    private static void quitCmd(CitySystem cs){//Todo: implementar o store da serialização com o lenine
+        System.out.println(SAVED_DIRECTORY_MSG);
+        System.out.println(QUIT_MSG);
+    }
 }

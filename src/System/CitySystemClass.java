@@ -9,14 +9,12 @@ public class CitySystemClass implements CitySystem{
 
     public CitySystemClass(){
 
-    cities = new SortedLinkedList<>(new CitiesComparator());
+        cities = new SortedLinkedList<>(new CitiesComparator());
 
     }
 
     @Override
-    public void addCity(String cityName, String countryName, int population) throws CityAlreadyExistsException {//fixme: testar e considerar mudar para iterador
-        //fixme: a classe usa o comparador em vez do equals;
-        // Se o find devolver != null é porque encontrou alguma coisa e lança exceção.
+    public void addCity(String cityName, String countryName, int population) throws CityAlreadyExistsException {
         if (findCity(cityName,countryName) != null){
             throw new CityAlreadyExistsException();
         }
@@ -25,38 +23,44 @@ public class CitySystemClass implements CitySystem{
         cities.add(newCity);
 
     }
+
+    /**
+     * Returns city by its name and country
+     * @param cityName Name of the city.
+     * @param countryName Name of the country.
+     * @return City if found or null if not found
+     */
     private City findCity (String cityName, String countryName){
 
         Iterator<City> it = cities.iterator();
         while (it.hasNext()){
-          City cite = it.next();
-          if (cite.getCountry().equals(countryName) && cite.getName().equalsIgnoreCase(cityName)){
-              return cite;
-          }
+            City city = it.next();
+            if (city.getCountry().equals(countryName) && city.getName().equalsIgnoreCase(cityName)){
+                return city;
+            }
         }
         return null;
     }
 
     @Override
     public void removeCity(String cityName, String countryName) throws CityDoesNotExistException {
-        City cite = findCity(cityName,countryName);
-        if(cite == null)
+        City city = findCity(cityName,countryName);
+        if(city == null)
             throw new CityDoesNotExistException();
-        cities.remove(cite);
+        cities.remove(city);
     }
 
     @Override
     public int population(String cityName, String countryName) throws CityDoesNotExistException {
-        City cite = findCity(cityName,countryName);
-      if (cite == null){
-          throw new CityDoesNotExistException();
-      }
-      return cite.getPopulation();
+        City city = findCity(cityName,countryName);
+        if (city == null){
+            throw new CityDoesNotExistException();
+        }
+        return city.getPopulation();
     }
 
     @Override
-    public Iterator<City> listCities() throws NoCitiesAvailableException {
+    public Iterator<City> listCities(){
         return cities.iterator();
     }
 }
-
