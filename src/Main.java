@@ -9,15 +9,23 @@ public class Main {
     private static final String CITY_ALREADY_EXISTS_MSG = "City already exists.";
     private static final String CITY_REMOVED_MSG = "City successfully removed.";
     private static final String CITY_NOT_FOUND_MSG = "City not found.";
-    private static final String POPULATION_MSG = "Population: %d";
+    private static final String POPULATION_MSG = "Population: %d\n";
     private static final String LIST_CITY_MSG = "%s - %d - %s\n";
     private static final String NO_CITIES_MSG="No cities available.";
     private static final String SAVED_DIRECTORY_MSG = "City directory saved.";
     private static final String QUIT_MSG = "Goodbye.";
+    private static final String FILE_NAME = "file.dat";
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        CitySystem cs = new CitySystemClass();
+        CitySystem cs = CitySystemClass.load(FILE_NAME);
+        if(cs == null){
+            cs = new CitySystemClass();
+            System.out.println("City directory not found.");
+            System.out.println("Creating an empty city directory.");
+        }else{
+            System.out.println("City directory restored successfully.");
+        }
         executeCommand(in, cs);
         in.close();
     }
@@ -29,7 +37,7 @@ public class Main {
     private enum Command {
         addCity("addCity: Adds a new city to the directory."),
         removeCity("removeCity: Removes an existing city from the directory."),
-        population("population: Returns the number of inhabitants of a city"),
+        population("population: Returns the number of inhabitants of a city."),
         listCities("listCities: Lists all cities currently stored in the directory."),
         help(" help: Displays the list of available commands."),
         quit("quit: Terminates the application.");
@@ -59,9 +67,9 @@ public class Main {
      */
     private static Command getCommand(Scanner in) {
         Command finalCmd = null;
-            String cmd = in.nextLine();
+            String cmd = in.nextLine().trim();
             for(int i = 0; i<Command.values().length;i++){
-                if(Command.values()[i].toString().equalsIgnoreCase(cmd))//todo: A leitura do comando dever ser case-insensitive;
+                if(Command.values()[i].toString().equalsIgnoreCase(cmd))
                     finalCmd = Command.values()[i];
             }
             return finalCmd;
@@ -104,10 +112,10 @@ public class Main {
      */
     private static void addCityCmd(Scanner in, CitySystem cs) {
         try {
-            String cityName = in.nextLine();
-            String countryName = in.nextLine();
+            String cityName = in.nextLine().trim();
+            String countryName = in.nextLine().trim();
             int population = in.nextInt();
-            in.nextLine();
+            in.nextLine().trim();
             cs.addCity(cityName, countryName, population);
             System.out.println(ADDED_CITY_MSG);
         } catch (CityAlreadyExistsException e) {
@@ -122,8 +130,8 @@ public class Main {
      */
     private static void removeCityCmd(Scanner in, CitySystem cs) {
         try {
-            String cityName = in.nextLine();
-            String countryName = in.nextLine();
+            String cityName = in.nextLine().trim();
+            String countryName = in.nextLine().trim();
             cs.removeCity(cityName, countryName);
             System.out.println(CITY_REMOVED_MSG);
 
@@ -140,8 +148,8 @@ public class Main {
      */
     private static void populationCmd(Scanner in, CitySystem cs){
         try {
-            String cityName = in.nextLine();
-            String countryName = in.nextLine();
+            String cityName = in.nextLine().trim();
+            String countryName = in.nextLine().trim();
             int numPopulation = cs.population(cityName,countryName);
             System.out.printf(POPULATION_MSG, numPopulation);
 
@@ -157,19 +165,22 @@ public class Main {
     private  static  void listCitiesCmd(CitySystem cs){
             Iterator<City> it = cs.listCities();
             if(!it.hasNext())
-                System.out.println(NO_CITIES_MSG);//todo: Se fores ler o enunciado, isso não é uma mensagem de erro mas sim uma funcionalidade do programa
+                System.out.println(NO_CITIES_MSG);
             while (it.hasNext()){
                 City city = it.next();
                 System.out.printf(LIST_CITY_MSG,city.getCountry(),city.getPopulation(),city.getName());
             }
-
     }
 
     /**
      * Terminates de application.
      * @param cs City System
      */
-    private static void quitCmd(CitySystem cs){//Todo: implementar o store da serialização com o lenine
+    private static void quitCmd(CitySystem cs){
+        try{
+            cs.storeCities(FILE_NAME);
+        }catch (RuntimeException e){
+        }
         System.out.println(SAVED_DIRECTORY_MSG);
         System.out.println(QUIT_MSG);
     }

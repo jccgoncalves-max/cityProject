@@ -1,9 +1,12 @@
 package System;
 import dataStructures.exceptions.*;
 import dataStructures.*;
-import dataStructures.exceptions.*;
+
+import java.io.*;
 
 public class CitySystemClass implements CitySystem{
+    private static final long serialVersionUID = 1L;
+
 
     SortedList<City> cities;
 
@@ -35,7 +38,7 @@ public class CitySystemClass implements CitySystem{
         Iterator<City> it = cities.iterator();
         while (it.hasNext()){
             City city = it.next();
-            if (city.getCountry().equals(countryName) && city.getName().equalsIgnoreCase(cityName)){
+            if (city.getCountry().equalsIgnoreCase(countryName) && city.getName().equalsIgnoreCase(cityName)){
                 return city;
             }
         }
@@ -63,4 +66,37 @@ public class CitySystemClass implements CitySystem{
     public Iterator<City> listCities(){
         return cities.iterator();
     }
+
+
+@Override
+public void storeCities(String fileName){
+        try{
+            ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(fileName));
+            file.writeObject(this);
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            throw new OutputWriteException();
+        }
+    }
+
+    public static CitySystem load(String name) {
+        CitySystem cs = null ;
+        try{
+            ObjectInputStream file = new ObjectInputStream(
+                    new FileInputStream(name) );
+            cs= (CitySystem) file.readObject();
+            file.close();
+        }
+        catch (IOException e ) {
+            cs = null;
+        }
+        catch (ClassNotFoundException e) {
+            cs = null;
+        }
+        return cs;
+    }
+
+
+
 }

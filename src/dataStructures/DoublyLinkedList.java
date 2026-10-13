@@ -103,7 +103,7 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
      * @param position - position of node to be removed
      * @return element removed from the first position of the list
      */
-    E removeMiddle( int position ) {
+    E removeMiddle (int position ) {
         DoublyListNode<E> target;
         if (position < currentSize/2){
             target = (DoublyListNode<E>) head;
@@ -136,7 +136,6 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
             prev = (LinkedNode<E>) current;
             current = ((LinkedNode<E>) current).getNext();
         }
-
         return new pairNode<>(prev,current);
     }
 }

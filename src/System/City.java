@@ -1,6 +1,8 @@
 package System;
 
-public interface City  {
+import java.io.Serializable;
+
+public interface City extends Serializable {
     /**
      * Returns city name.
      * @return city name.
