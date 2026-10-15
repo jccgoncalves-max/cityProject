@@ -4,6 +4,7 @@ import dataStructures.exceptions.NoSuchElementException;
 
 /**
  * Iterator Abstract Data Type with Filter
+ * Spacial complexity: 0(1) because only stores in memory the reference of the elements to be returned.
  * Includes description of general methods for one way iterator.
  * @author AED  Team
  * @version 1.0
@@ -36,7 +37,7 @@ public class FilterIterator<E> implements Iterator<E> {
     
     /**
      * Returns true if next would return an element
-     *
+     * Time complexity: O(1) because we only have to compare two variable.
      * @return true iff the iteration has more elements
      */
     public boolean hasNext() {
@@ -44,17 +45,17 @@ public class FilterIterator<E> implements Iterator<E> {
     }
     /**
      * Returns the next element in the iteration.
-     *
+     * Time complexity: O(1) because we only have to assign new values to variables and return next element
      * @return the next element in the iteration
      * @throws NoSuchElementException - if call is made without verifying pre-condition
      */
-    public E next() {//todo:
-        //TODO: Left as an exercise.
+    public E next() {
         return null;
     }
     /**
      * Restarts the iteration.
      * After rewind, if the iteration is not empty, next will return the first element.
+     * Time complexity: O(1) because we only have to change a variable.
      */
     public void rewind() {//todo:
         //TODO: Left as an exercise.   

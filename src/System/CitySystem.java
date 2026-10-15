@@ -35,9 +35,12 @@ public interface CitySystem extends Serializable {
     /**
      * Iterator of a cities collection
      * @return City Iterator
-     * @throws NoCitiesAvailableException
      */
     Iterator<City> listCities() ;
 
+    /**
+     * Stores cities in a serializable file.
+     * @param fileName Name of the file.
+     */
     void storeCities(String fileName);
 }

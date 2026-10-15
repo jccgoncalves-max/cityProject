@@ -20,7 +20,6 @@ public class SinglyLinkedList<E> extends SequenceLinkedList<E> {
      */
     @Override
     public void addFirst(E element) {
-        //TODO: Left as an exercise.
         LinkedNode<E> newNode = new SinglyListNode<>(element,(SinglyListNode<E>)head);
         super.addFirstNode(newNode);
     }

@@ -209,10 +209,10 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
     }
 
 
-    void writeData(ObjectOutputStream oos) throws IOException {//Utilizado para escrever uma variável específica ou informação de uma subclasse
+    void writeData(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject(); // write the normal attributes
     }
-    void readData(ObjectInputStream ois) throws IOException, ClassNotFoundException {//Utilizado para ler uma variável específica  ou  informação da uma subclasse
+    void readData(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject(); // read the normal attributes
     }
 }

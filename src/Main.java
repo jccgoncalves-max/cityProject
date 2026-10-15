@@ -11,7 +11,7 @@ public class Main {
     private static final String CITY_NOT_FOUND_MSG = "City not found.";
     private static final String POPULATION_MSG = "Population: %d\n";
     private static final String LIST_CITY_MSG = "%s - %d - %s\n";
-    private static final String NO_CITIES_MSG="No cities available.";
+    private static final String NO_CITIES_MSG = "No cities available.";
     private static final String SAVED_DIRECTORY_MSG = "City directory saved.";
     private static final String QUIT_MSG = "Goodbye.";
     private static final String FILE_NAME = "file.dat";
@@ -180,6 +180,7 @@ public class Main {
         try{
             cs.storeCities(FILE_NAME);
         }catch (RuntimeException e){
+
         }
         System.out.println(SAVED_DIRECTORY_MSG);
         System.out.println(QUIT_MSG);
