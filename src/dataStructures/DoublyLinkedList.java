@@ -4,6 +4,7 @@ import dataStructures.exceptions.NoSuchElementException;
 
 /**
  *  Doubly Linked List
+ *  Spacial Complexity: O(n) because it stores n elements in memory.
  * @author AED  Team
  * @version 1.0
  * @param <E> Generic Element
@@ -23,14 +24,16 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
 
     /**
      * Returns a two-way iterator of the elements in the list.
-     *
+     * Time Complexity: O(1) because it only creates and returns a TwoWayIterator.
      * @return Two-Way Iterator of the elements in the list
      */
     public TwoWayIterator<E> twoWayiterator() {
         return new TwoWayLinkedIterator<>(head, tail);
     }
+
     /**
      * Inserts the element at the first position in the list.
+     * Time Complexity: O(1) because it only changes references.
      * @param element - Element to be inserted
      */
     public void addFirst( E element ) {
@@ -44,8 +47,10 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
         head = newNode;
         currentSize++;
     }
+
     /**
      * Inserts the element at the last position in the list.
+     * Time Complexity: O(1) because it only needs to change the references.
      * @param element - Element to be inserted
      */
     public void addLast( E element ) {
@@ -60,6 +65,7 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
     }
     /**
      * Inserts the specified element at the specified position in the list.
+     * Time Complexity: O(1) because it only needs to change the reference.
      * Pre-condition: position ranges from 1 to currentSize-1.
      * @param position - middle position for insertion of element
      * @param element - element to be inserted at middle position
@@ -79,6 +85,7 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
 
     /**
      * Removes and returns the element at the first position in the list.
+     * Time Complexity: O(1) because it only needs to remove that refence the points toward the element.
      * @return element removed from the first position of the list
      * @throws NoSuchElementException - if size() == 0
      */
@@ -99,6 +106,7 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
 
     /**
      * Removes the node from the specified position of the list.
+     * Time Complexity: O(1) because it only needs to remove that refence the points toward the element.
      * Pre-condition: the position is neither 0 nor the currentSize of the list.
      * @param position - position of node to be removed
      * @return element removed from the first position of the list
@@ -128,6 +136,13 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
         return element;
     }
 
+    /**
+     * Return a pair of nodes with given position and the previous.
+     * Time complexity best case: O(1) because the pair could be in position i=1
+     * Time complexity worst case: O(n) because we could have to go through n elements to get the pair.
+     * @param position node pair position
+     * @return pair of nodes in giver position
+     */
     pairNode<E> getNodes(int position){
         LinkedNode<E> prev = null;
         LinkedNode<E> current = (LinkedNode<E>)head;

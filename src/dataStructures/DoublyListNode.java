@@ -1,9 +1,9 @@
 package dataStructures;
-
 import java.io.Serializable;
 
 /**
      * Double List Node Implementation
+     * Spacial Complexity: O(1) because it only stores references about itself(the node).
      * @author AED  Team
      * @version 1.0
      * @param <E> Generic Element
@@ -34,14 +34,14 @@ class DoublyListNode<E> extends SinglyListNode<E> implements Serializable {
             this.previous = null;
         }
         /**
-         * 
+         * Time Complexity: O(1) because it only returns the value of a variable.
          * @return the previous node
          */
         public LinkedNode<E> getPrevious() {
             return previous;
         }
         /**
-         * 
+         * Time Complexity: O(1) because it only changes the value of a variable.
          * @param newPrevious - node to replace the current previous node
          */
         public void setPrevious( LinkedNode<E> newPrevious ) {

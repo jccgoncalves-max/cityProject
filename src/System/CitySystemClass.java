@@ -27,24 +27,6 @@ public class CitySystemClass implements CitySystem{
 
     }
 
-    /**
-     * Returns city by its name and country
-     * @param cityName Name of the city.
-     * @param countryName Name of the country.
-     * @return City if found or null if not found
-     */
-    private City findCity (String cityName, String countryName){
-
-        Iterator<City> it = cities.iterator();
-        while (it.hasNext()){
-            City city = it.next();
-            if (city.getCountry().equalsIgnoreCase(countryName) && city.getName().equalsIgnoreCase(cityName)){
-                return city;
-            }
-        }
-        return null;
-    }
-
     @Override
     public void removeCity(String cityName, String countryName) throws CityDoesNotExistException {
         City city = findCity(cityName,countryName);
@@ -85,7 +67,7 @@ public void storeCities(String fileName){
         try{
             ObjectInputStream file = new ObjectInputStream(
                     new FileInputStream(name) );
-            cs= (CitySystem) file.readObject();
+            cs = (CitySystem) file.readObject();
             file.close();
         }
         catch (IOException e ) {
@@ -95,6 +77,24 @@ public void storeCities(String fileName){
             cs = null;
         }
         return cs;
+    }
+
+    /**
+     * Returns city by its name and country
+     * @param cityName Name of the city.
+     * @param countryName Name of the country.
+     * @return City if found or null if not found
+     */
+    private City findCity (String cityName, String countryName){
+
+        Iterator<City> it = cities.iterator();
+        while (it.hasNext()){
+            City city = it.next();
+            if (city.getCountry().equalsIgnoreCase(countryName) && city.getName().equalsIgnoreCase(cityName)){
+                return city;
+            }
+        }
+        return null;
     }
 
 
