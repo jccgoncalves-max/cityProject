@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
+ * Space Complexity of Structure:
+ *  - Worse case: O(n) - Stores n nodes in dynamic memory.
  * Sorted linked list Implementation
  * @author AED  Team
  * @version 1.0
@@ -19,6 +21,9 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
      */
     private final Comparator<E> comparator;
     /**
+     * Time Complexity:
+     *- Best Case: O(1) - Constant time initialization of structure attributes.
+     *- Worst Case: O(1) - Constant time initialization.
      * Constructor of an empty sorted singly linked list.
      * head and tail are initialized as null.
      * currentSize is initialized as 0.
@@ -29,6 +34,9 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
     }
 
     /**
+     * Time complexity:
+     * Best case:0(1) - Accesses head directly in constant time.
+     * Worse case:O(1) - Accesses head directly in constant time.
      * Returns the first element of the list.
      * @return first element in the list
      * @throws NoSuchElementException - if size() == 0
@@ -42,6 +50,9 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
     }
 
     /**
+     * Time complexity:
+     * Best case:O(1) - Accesses tail directly in constant time.
+     * Worse case:O(1) - Accesses tail directly in constant time.
      * Returns the last element of the list.
      * @return last element in the list
      * @throws NoSuchElementException - if size() == 0
@@ -54,6 +65,9 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
 
     }
     /**
+     * Time complexity:
+     * Best case:O(1)-Target element is equal to or smaller than head.
+     * Worse case:O(n) -Target element is larger than all elements or at the tail.
      * Returns the first occurrence of the element equals to the given element in the list.
      * @return element in the list or null
      */
@@ -73,7 +87,9 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
     }
     /**
      * Returns true iff the element exists in the list.
-     *
+     *Time complexity:
+     *-Best case:O(1)-Target element is equal to head element.
+     *-Worse case:O(n)-Target element is greater than all elements or at the end of the list.
      * @param element to be found
      * @return true iff the element exists in the list.
      */
@@ -93,6 +109,9 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
     }
 
     /**
+     * Time complexity:
+     *-Best case:O(1)- List is empty or new element is smaller than head.
+     *-Worse case:O(n)-New element is greater than all existing elements, requiring full traversal.
      * Inserts the specified element at the list, according to the comparator order.
      * If there is an equal element, the new element is inserted after it.
      * @param element to be inserted
@@ -121,6 +140,14 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
           }
         }
 
+    /**
+     * Removes the first occurrence of the specified element from the list.
+     * Time complexity:
+     * -Best case:O(1)-Target element is at the head of the list.
+     * -Worse case:O(n)-Target element is at the tail or not found after full traversal.
+     * @param element
+     * @return
+     */
     @Override
     public E remove(E element) {
         LinkedNode<E> prev = null;
@@ -154,12 +181,22 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
         return removedElement;
     }
 
+    /**
+     * Helper method to insert an element at the end of the list during deserialization.
+     * Time complexity:
+     *Best case:O(1)-Directly appends node at tail in constant time.
+     *Worse case:O(1)-Constant time insertion at tail
+     * @param element
+     */
     @Override
     void addElem(E element) {
         addLast(element);
     }
 
     /**
+     * Time complexity:
+     *-Best case:O(1)-Direct pointer updates in constant time.
+     * -Worse case:O(1)-Direct pointer updates in constant time.
      * Inserts the element before node after.
      * Precondition: after is not the head of the list.
      * @param element - Element to be inserted
@@ -173,6 +210,9 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
         currentSize++;
     }
     /**
+     * Time complexity:
+     *Best case:O(1)-Inserts at head in constant time.
+     *Worse case:O(1)-Inserts at head in constant time.
      * Inserts the element at the first position in the list.
      * @param element - Element to be inserted
      */
@@ -182,6 +222,9 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
     }
 
     /**
+     *Time complexity:
+     *Best case:O(1)-Inserts at tail in constant time.
+     *Worse case:O(1)-Inserts at tail in constant time.
      * Inserts the element at the last position in the list.
      * @param element - Element to be inserted
      */
@@ -191,6 +234,10 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
     }
 
     /**
+     * Invariant check to verify whether the list elements remain sorted.
+     * Time complexity:
+     * Best case:O(1)-Returns true immediately if the list is empty or has size 1.
+     * Worse case:O(n)-Iterates through all n elements to confirm sorted order.
      *
      * @return
      */
@@ -208,10 +255,27 @@ public class SortedLinkedList<E> extends LinkedList<E> implements SortedList<E> 
         return ok;
     }
 
-
+    /**
+     *Writes non-transient attributes of the sorted list to an ObjectOutputStream.
+     *  Time Complexity:
+     * - Best Case: O(1) - Default object writing operates in constant time for default fields.
+     * - Worst Case: O(1) - Constant time attribute output.
+     * @param oos
+     * @throws IOException
+     */
     void writeData(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject(); // write the normal attributes
     }
+
+    /**
+     *Reads non-transient attributes of the sorted list from an ObjectInputStream.
+     * Time Complexity:
+     *- Best Case: O(1) - Default object reading operates in constant time for default fields.
+     *- Worst Case: O(1) - Constant time attribute input.
+     * @param ois
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     void readData(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject(); // read the normal attributes
     }
