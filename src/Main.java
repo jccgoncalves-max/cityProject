@@ -6,8 +6,8 @@ import java.util.Scanner;
 /**
  * Main application class responsible for handling console input and command execution.
  * Space Complexity of Class:
- *- Auxiliary Space: O(1) - Uses a constant amount of stack memory for Scanner, primitive types, and local references.
- *- Storage Space: O(n) - Holds the CitySystem reference in memory, which dynamically stores n City objects in the Heap.
+ * Auxiliary Space: O(1) - Uses a constant amount of stack memory for Scanner, primitive types, and local references.
+ * Storage Space: O(n) - Holds the CitySystem reference in memory, which dynamically stores n City objects in the Heap.
  */
 public class Main {
     //Constant

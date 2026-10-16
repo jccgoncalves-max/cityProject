@@ -5,7 +5,6 @@ import dataStructures.*;
 /**
  * Space Complexity of Class:
  * : O(1) - The comparator is stateless and contains no fields or dynamic memory.
- *
  * Comparator for City objects based on country name, population, and city name.
  * Ordering strategy:
  *   1. Country name ascending (lexicographical order)

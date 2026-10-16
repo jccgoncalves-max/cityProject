@@ -26,7 +26,7 @@ class DoublyListNode<E> extends SinglyListNode<E> implements Serializable {
             this.previous=thePrevious;
         }
         /**
-         * 
+         * Doubly list node constructor
          * @param theElement to be contained in the node
          */
         public DoublyListNode(E theElement ) {
