@@ -14,8 +14,8 @@ public class SinglyLinkedList<E> extends SequenceLinkedList<E> {
     /**
      * Constructs an empty SinglyLinkedList.
      * Time Complexity:
-     * - Best Case: O(1) - Constant time initialization.
-     *- Worst Case: O(1) - Constant time initialization.
+     *  Best Case: O(1) - Constant time initialization.
+     *  Worst Case: O(1) - Constant time initialization.
      */
     public SinglyLinkedList( ) {
         super();
@@ -55,8 +55,8 @@ public class SinglyLinkedList<E> extends SequenceLinkedList<E> {
      * Time complexity:
      * Best case- O(1) Target position is 1, requiring minimal node traversal in getNodes.
      * Worse case -O(n) Target position is near the end, requiring linear traversal up to position n.
-     * @param position
-     * @param element
+     * @param position position to be added
+     * @param element element to be added
      */
     void addMiddle(int position, E element) {
 

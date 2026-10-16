@@ -17,7 +17,8 @@ public class DoublyLinkedList<E> extends SequenceLinkedList<E> implements TwoWay
      * head and tail are initialized as null.
      * currentSize is initialized as 0.
      */
-    public DoublyLinkedList( ) {
+    public
+    DoublyLinkedList( ) {
         super();
     }
 
