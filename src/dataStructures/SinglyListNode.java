@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Singly List Node Implementation
+ * Space Complexity: O(1) because it only stores information about itself(next,element)
  * @author AED  Team
  * @version 1.0
  * @param <E> Generic Element
@@ -22,7 +23,7 @@ class SinglyListNode<E> implements LinkedNode<E> {
     private LinkedNode<E> next;
 
     /**
-     *
+     * Singly list constructor
      * @param theElement - The element to be contained in the node
      * @param theNext - the next node
      */
@@ -32,7 +33,7 @@ class SinglyListNode<E> implements LinkedNode<E> {
     }
 
     /**
-     *
+     * Singly list constructor
      * @param theElement to be contained in the node
      */
     public SinglyListNode( E theElement ) {
@@ -40,7 +41,8 @@ class SinglyListNode<E> implements LinkedNode<E> {
     }
 
     /**
-     *
+     * Returns elements stored in the node
+     * Time complexity: O(1) because it only returns the value of a variable.
      * @return the element contained in the node
      */
     public E getElement( ) {
@@ -48,7 +50,8 @@ class SinglyListNode<E> implements LinkedNode<E> {
     }
 
     /**
-     *
+     * Returns the next node
+     * Time Complexity: O(1) because it only returns the value of a variable
      * @return the next node
      */
     public LinkedNode<E> getNext( ) {
@@ -56,7 +59,8 @@ class SinglyListNode<E> implements LinkedNode<E> {
     }
 
     /**
-     *
+     * Sets a new element in the node
+     * Time complexity: O(1) because it only assigns a new element to a variable
      * @param newElement - New element to replace the current element
      */
     public void setElement( E newElement ) {
@@ -64,7 +68,8 @@ class SinglyListNode<E> implements LinkedNode<E> {
     }
 
     /**
-     *
+     * Sets a new next node
+     * Time complexity: O(1) because it only assigns a new next to a variable
      * @param newNext - node to replace the next node
      */
     public void setNext( LinkedNode<E> newNext ) {
